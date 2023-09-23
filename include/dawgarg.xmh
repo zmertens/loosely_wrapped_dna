@@ -1,0 +1,56 @@
+/****************************************************************************
+ *  Copyright (C) 2009 Reed A. Cartwright, PhD <reed@scit.us>               *
+ *                                                                          *
+ *  This program is free software: you can redistribute it and/or modify    *
+ *  it under the terms of the GNU General Public License as published by    *
+ *  the Free Software Foundation, either version 3 of the License, or       *
+ *  (at your option) any later version.                                     *
+ *                                                                          *
+ *  This program is distributed in the hope that it will be useful,         *
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *  GNU General Public License for more details.                            *
+ *                                                                          *
+ *  You should have received a copy of the GNU General Public License       *
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
+ ****************************************************************************/
+
+#include "loosely_wrapped_dna/include/xm.h"
+
+/***************************************************************************
+ *    X-Macro List                                                         *
+ *                                                                         *
+ *    XM(lname, sname, desc, type, def) (option)                           *
+ *    XF(lname, sname, desc, type, def) (flag)                             *
+ ***************************************************************************/
+
+XF((version), , "display version information", bool, false)
+XF((help)(trick), , "display description of common control variables", bool,
+   false)
+
+XM((output), (o), "output to this file", std::string, "")
+XM((seed), , "PRNG seed", unsigned int, 0)
+XM((reps), , "the number of alignments to generate", unsigned int, 0)
+XF((split), , "split output into separate files", bool, false)
+XF((append), , "append output to file", bool, false)
+XF((label), , "label each simulation with a unique id", bool, false)
+
+XM((arg)(file), , "read arguments from file", std::string, "")
+
+// XCMD((serial),  (s), "Process input files serially", bool, true)
+// XCMD((combined),(c), "process input files together", bool, false)
+// XCMD((buffer),  (b), "buffer output", bool, true)
+// XCMD((unbuffer),  (u), "unbuffered output", bool, false)
+
+// Standard options
+// XM((quiet),       (q), "disable all warnings and error messages", bool,
+// false) XM((warn),        (w), "dsable warnings", bool, false) XM((error),
+// (e), "disable error messages", bool, false) XM((input),          , "input
+// files", std::vector< std::string >, DL(std::vector< std::string >(1,
+// std::string("-")), "-") ) XM((input),          , "input files", std::vector<
+// std::string >, DL(std::vector< std::string >(), "") )
+
+/***************************************************************************
+ *    cleanup                                                              *
+ ***************************************************************************/
+#include "loosely_wrapped_dna/include/xm.h"

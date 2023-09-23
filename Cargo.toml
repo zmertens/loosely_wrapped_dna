@@ -1,0 +1,17 @@
+[package]
+name = "loosely_wrapped_dna"
+version = "0.1.0"
+edition = "2021"
+authors = ["zmertens"]
+description = "Simulating DNA strings with DAWG-CPP engine"
+license = "MIT"
+publish = false
+repository = "https://github.com/zmertens/loosely_wrapped_dna"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cxx = "1.0"
+
+[build-dependencies]
+cxx-build = "1.0"
