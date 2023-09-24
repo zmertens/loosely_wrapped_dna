@@ -167,17 +167,17 @@ uint64_t dawg_app::run() const {
         simulation.auto_seed_seq();
     }
 
-    // if(!simulation.configure(configs.begin(), configs.end())) {
-    //     DAWG_ERROR("bad configuration");
-    //     return EXIT_FAILURE;
-    // }
-    // // create sets of aligned sequences;
-    // dawg::alignment aln;
-    // simulation.pre_walk(aln);
-    // for(unsigned int i = 0; i < num_reps; ++i) {
-    //     simulation.walk(aln);
-    //     // write_aln(aln);
-    // }
+    if(!simulation.configure(configs.begin(), configs.end())) {
+        DAWG_ERROR("bad configuration");
+        return EXIT_FAILURE;
+    }
+    // create sets of aligned sequences;
+    dawg::alignment aln;
+    simulation.pre_walk(aln);
+    for(unsigned int i = 0; i < num_reps; ++i) {
+        simulation.walk(aln);
+        write_aln(aln);
+    }
     return EXIT_SUCCESS;
 } // run
 
