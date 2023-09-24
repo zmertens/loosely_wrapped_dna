@@ -39,7 +39,7 @@
 
 namespace dawg_app {
 
-std::unique_ptr<dawg_app> new_dawg_app(uint64_t argc, rust::Vec<rust::Str> argv) {
+std::unique_ptr<dawg_app> new_dawg_app(uint64_t argc, const char* const *argv) {
     return std::make_unique<dawg_app>(argc, argv);
 }
 
@@ -65,7 +65,7 @@ dawg_app::dawg_app() {
     // printf("In constructor()");
 }
 
-dawg_app::dawg_app(uint64_t argc, rust::Vec<rust::Str> argv) : runname(argv[0]) {
+dawg_app::dawg_app(uint64_t argc, const char* const *argv) : runname(argv[0]) {
     // set_cli_options
     this->cli_app.add_option("input", arg.input, "input files");
 #define XM(lname, sname, desc, type, def)                            \
@@ -80,17 +80,24 @@ dawg_app::dawg_app(uint64_t argc, rust::Vec<rust::Str> argv) : runname(argv[0]) 
 #undef XM
 #undef XF
 
-    const char* argv_arr[6] = {
-        argv[0].data(),
-        argv[1].data(),
-        argv[2].data(),
-        argv[3].data(),
-        argv[4].data(),
-        argv[5].data()
-    };
+    // Copy the Rust vec of strings into a C-style array of char pointers
+    // char** argv_arr = new char*[static_cast<uint64_t>(args.size())];
+
+    // for (unsigned int i = 0; i < args.size(); i++) {
+    //     argv_arr[i] = const_cast<char*>(args.at(i).data());
+    // }
+
+    // const char* argv_arr[6] = {
+    //     argv[0].data(),
+    //     argv[1].data(),
+    //     argv[2].data(),
+    //     argv[3].data(),
+    //     argv[4].data(),
+    //     argv[5].data()
+    // };
 
     try {
-        this->cli_app.parse(argc, argv_arr);
+        this->cli_app.parse(argc, argv);
     } catch(const CLI::CallForHelp &e) {
         exit(this->cli_app.exit(e));
     }

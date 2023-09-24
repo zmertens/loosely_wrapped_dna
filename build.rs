@@ -14,6 +14,10 @@ fn main() {
     println!("cargo:rerun-if-changed=src/dawg.cpp");
     println!("cargo:rerun-if-changed=src/models.cpp");
     println!("cargo:rerun-if-changed=src/random.cpp");
+    println!("cargo:rerun-if-changed=src/ma.cpp");
+    println!("cargo:rerun-if-changed=src/parse.cpp");
+    println!("cargo:rerun-if-changed=src/matic.cpp");
+    println!("cargo:rerun-if-changed=src/output.cpp");
     println!("cargo:rerun-if-changed=include/dawg_app.h");
     println!("cargo:rerun-if-changed=include/dawg.h");
     println!("cargo:rerun-if-changed=include/version.h");
