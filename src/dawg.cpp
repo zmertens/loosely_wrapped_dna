@@ -39,7 +39,7 @@
 
 namespace dawg_app {
 
-std::unique_ptr<dawg_app> new_dawg_app(uint64_t argc, rust::Vec<rust::String> argv) {
+std::unique_ptr<dawg_app> new_dawg_app(uint64_t argc, rust::Vec<rust::Str> argv) {
     return std::make_unique<dawg_app>(argc, argv);
 }
 
@@ -65,7 +65,7 @@ dawg_app::dawg_app() {
     // printf("In constructor()");
 }
 
-dawg_app::dawg_app(uint64_t argc, rust::Vec<rust::String> argv) : runname(argv[0].data()) {
+dawg_app::dawg_app(uint64_t argc, rust::Vec<rust::Str> argv) : runname(argv[0]) {
     // set_cli_options
     this->cli_app.add_option("input", arg.input, "input files");
 #define XM(lname, sname, desc, type, def)                            \
@@ -80,12 +80,13 @@ dawg_app::dawg_app(uint64_t argc, rust::Vec<rust::String> argv) : runname(argv[0
 #undef XM
 #undef XF
 
-    const char* argv_arr[5] = {
-        argv[0].c_str(),
-        argv[1].c_str(),
-        argv[2].c_str(),
-        argv[3].c_str(),
-        argv[4].c_str()
+    const char* argv_arr[6] = {
+        argv[0].data(),
+        argv[1].data(),
+        argv[2].data(),
+        argv[3].data(),
+        argv[4].data(),
+        argv[5].data()
     };
 
     try {

@@ -30,6 +30,6 @@ Length = 1000
 #
 # Simulate 10 alignments
 
-[Sim]
-Reps = 10
+#[Sim]
+#Reps = 10
 

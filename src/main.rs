@@ -17,17 +17,18 @@ mod ffi {
         type dawg_app;
 
         // fn new_dawg_app() -> UniquePtr<dawg_app>;
-        fn new_dawg_app(argc: u64, argv: Vec<String>) -> UniquePtr<dawg_app>;
+        fn new_dawg_app(argc: u64, argv: Vec<&str>) -> UniquePtr<dawg_app>;
         fn run(&self) -> u64;
     }
 }
 
 fn main() {
-    let argv =  vec![String::from("loosely_wrapped_dna"),
-        String::from("--seed=101"),
-        String::from("examples/basic-dna.dawg"),
-        String::from("-o"),
-        String::from("basic-dna_101.fasta")];
+    let argv =  vec!["loosely_wrapped_dna\0",
+        "--seed=462\0",
+        "--reps=1\0",
+        "examples/basic-dna.dawg\0",
+        "-o\0",
+        "basic-dna_462.fasta\0"];
     let dawg_app = ffi::new_dawg_app(argv.len() as u64, argv);
     let run_result = dawg_app.run();
 }
