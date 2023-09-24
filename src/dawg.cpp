@@ -33,8 +33,8 @@
 #include "loosely_wrapped_dna/include/version.h"
 #include "loosely_wrapped_dna/include/global.h"
 #include "loosely_wrapped_dna/include/ma.h"
-// #include "dawg/matic.h"
-// #include "dawg/output.h"
+#include "loosely_wrapped_dna/include/matic.h"
+#include "loosely_wrapped_dna/include/output.h"
 #include "loosely_wrapped_dna/include/trick.h"
 
 namespace dawg_app {
@@ -80,12 +80,12 @@ dawg_app::dawg_app(uint64_t argc, rust::Vec<rust::String> argv) : runname(argv[0
 #undef XM
 #undef XF
 
-    const char* argv_arr[2] = {
+    const char* argv_arr[5] = {
         argv[0].c_str(),
-        argv[1].c_str()
-        // argv[2].c_str(),
-        // argv[3].c_str(),
-        // argv[4].c_str()
+        argv[1].c_str(),
+        argv[2].c_str(),
+        argv[3].c_str(),
+        argv[4].c_str()
     };
 
     try {
@@ -123,49 +123,49 @@ uint64_t dawg_app::run() const {
 
     bool ret = true;
     for(const std::string &ss : arg.input) {
-        // ret &= dawg::trick::parse_file(input, ss.c_str());
+        ret &= dawg::trick::parse_file(input, ss.c_str());
     }
 
     if(!ret) return EXIT_FAILURE;
     // process aliases
     input.read_aliases();
 
-    // dawg::global_options glopts;
-    // glopts.read_section(input.data.front());
+    dawg::global_options glopts;
+    glopts.read_section(input.data.front());
 
-    // unsigned int num_reps = (arg.reps > 0) ? arg.reps : glopts.sim_reps;
+    unsigned int num_reps = (arg.reps > 0) ? arg.reps : glopts.sim_reps;
 
-    // dawg::output write_aln;
-    // const char *file_name =
-    //     arg.output.empty() ? glopts.output_file.c_str() : arg.output.c_str();
+    dawg::output write_aln;
+    const char *file_name =
+        arg.output.empty() ? glopts.output_file.c_str() : arg.output.c_str();
 
-    // if(!write_aln.open(file_name, num_reps - 1, arg.split, arg.append,
-    //                    arg.label)) {
-    //     DAWG_ERROR("bad configuration");
-    //     return EXIT_FAILURE;
-    // }
-    // write_aln.set_blocks(
-    //     glopts.output_block_head.c_str(), glopts.output_block_between.c_str(),
-    //     glopts.output_block_tail.c_str(), glopts.output_block_before.c_str(),
-    //     glopts.output_block_after.c_str());
+    if(!write_aln.open(file_name, num_reps - 1, arg.split, arg.append,
+                       arg.label)) {
+        DAWG_ERROR("bad configuration");
+        return EXIT_FAILURE;
+    }
+    write_aln.set_blocks(
+        glopts.output_block_head.c_str(), glopts.output_block_between.c_str(),
+        glopts.output_block_tail.c_str(), glopts.output_block_before.c_str(),
+        glopts.output_block_after.c_str());
 
-    // std::vector<dawg::ma> configs;
-    // if(!dawg::ma::from_trick(input, configs)) {
-    //     DAWG_ERROR("bad configuration");
-    //     return EXIT_FAILURE;
-    // }
+    std::vector<dawg::ma> configs;
+    if(!dawg::ma::from_trick(input, configs)) {
+        DAWG_ERROR("bad configuration");
+        return EXIT_FAILURE;
+    }
 
-    // // Create the object that will do all the simulation
-    // // work for us.  Configure its sections.
-    // dawg::matic simulation;
-    // // if a seed was specified, use it
-    // if(arg.seed != 0) {
-    //     simulation.seed(arg.seed);
-    // } else if(!glopts.sim_seed.empty()) {
-    //     simulation.seed(glopts.sim_seed.begin(), glopts.sim_seed.end());
-    // } else {
-    //     simulation.auto_seed_seq();
-    // }
+    // Create the object that will do all the simulation
+    // work for us.  Configure its sections.
+    dawg::matic simulation;
+    // if a seed was specified, use it
+    if(arg.seed != 0) {
+        simulation.seed(arg.seed);
+    } else if(!glopts.sim_seed.empty()) {
+        simulation.seed(glopts.sim_seed.begin(), glopts.sim_seed.end());
+    } else {
+        simulation.auto_seed_seq();
+    }
 
     // if(!simulation.configure(configs.begin(), configs.end())) {
     //     DAWG_ERROR("bad configuration");
@@ -176,9 +176,9 @@ uint64_t dawg_app::run() const {
     // simulation.pre_walk(aln);
     // for(unsigned int i = 0; i < num_reps; ++i) {
     //     simulation.walk(aln);
-    //     write_aln(aln);
+    //     // write_aln(aln);
     // }
     return EXIT_SUCCESS;
-}
+} // run
 
 } // namespace

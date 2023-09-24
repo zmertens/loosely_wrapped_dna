@@ -4,6 +4,9 @@ fn main() {
         .file("src/models.cpp")
         .file("src/random.cpp")
         .file("src/ma.cpp")
+        .file("src/parse.cpp")
+        .file("src/matic.cpp")
+        .file("src/output.cpp")
         .flag_if_supported("-std=c++17")
         .compile("loosely_wrapped_dna");
 
@@ -36,4 +39,10 @@ fn main() {
     println!("cargo:rerun-if-changed=include/ma.h");
     println!("cargo:rerun-if-changed=include/vecio.h");
     println!("cargo:rerun-if-changed=include/dawgma.xmh");
+    println!("cargo:rerun-if-changed=include/root.h");
+    println!("cargo:rerun-if-changed=include/rate.xmh");
+    println!("cargo:rerun-if-changed=include/specfunc.h");
+    println!("cargo:rerun-if-changed=include/matic.h");
+    println!("cargo:rerun-if-changed=include/indel.h");
+    println!("cargo:rerun-if-changed=include/output.h");
 }

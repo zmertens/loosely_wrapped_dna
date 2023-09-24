@@ -24,11 +24,10 @@ mod ffi {
 
 fn main() {
     let argv =  vec![String::from("loosely_wrapped_dna"),
-        String::from("--help-trick")];
-        // String::from("--seed=101"),
-        // String::from("basic-dna.dawg"),
-        // String::from("-o"),
-        // String::from("basic-dna_101.fasta")];
+        String::from("--seed=101"),
+        String::from("examples/basic-dna.dawg"),
+        String::from("-o"),
+        String::from("basic-dna_101.fasta")];
     let dawg_app = ffi::new_dawg_app(argv.len() as u64, argv);
     let run_result = dawg_app.run();
 }
