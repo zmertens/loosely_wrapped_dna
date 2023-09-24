@@ -1,14 +1,39 @@
 fn main() {
     cxx_build::bridge("src/main.rs")
         .file("src/dawg.cpp")
+        .file("src/models.cpp")
+        .file("src/random.cpp")
+        .file("src/ma.cpp")
         .flag_if_supported("-std=c++17")
         .compile("loosely_wrapped_dna");
 
     println!("cargo:rerun-if-changed=src/main.rs");
     println!("cargo:rerun-if-changed=src/dawg.cpp");
+    println!("cargo:rerun-if-changed=src/models.cpp");
+    println!("cargo:rerun-if-changed=src/random.cpp");
     println!("cargo:rerun-if-changed=include/dawg_app.h");
     println!("cargo:rerun-if-changed=include/dawg.h");
     println!("cargo:rerun-if-changed=include/version.h");
     println!("cargo:rerun-if-changed=include/dawgarg.xmh");
     println!("cargo:rerun-if-changed=include/xm.h");
+    println!("cargo:rerun-if-changed=include/aliastable.h");
+    println!("cargo:rerun-if-changed=include/CLI11.hpp");
+    println!("cargo:rerun-if-changed=include/random.hpp");
+    println!("cargo:rerun-if-changed=include/log.h");
+    println!("cargo:rerun-if-changed=include/utils.h");
+    println!("cargo:rerun-if-changed=include/residue.h");
+    println!("cargo:rerun-if-changed=include/subst.h");
+    println!("cargo:rerun-if-changed=include/subst_aa.h");
+    println!("cargo:rerun-if-changed=include/subst_cod.h");
+    println!("cargo:rerun-if-changed=include/subst_dna.h");
+    println!("cargo:rerun-if-changed=include/wood.h");
+    println!("cargo:rerun-if-changed=include/wood_parse.h");
+    println!("cargo:rerun-if-changed=include/trick.h");
+    println!("cargo:rerun-if-changed=include/trick_parse.h");
+    println!("cargo:rerun-if-changed=include/aliases.xmh");
+    println!("cargo:rerun-if-changed=include/global.h");
+    println!("cargo:rerun-if-changed=include/global.xmh");
+    println!("cargo:rerun-if-changed=include/ma.h");
+    println!("cargo:rerun-if-changed=include/vecio.h");
+    println!("cargo:rerun-if-changed=include/dawgma.xmh");
 }

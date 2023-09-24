@@ -1,6 +1,6 @@
 /*
     Simulate DNA strings using DAWG
-    Wrapped from a CXX library using the Crate-CXX library
+    DAWG is from a CXX library and wrapped using the Crate-CXX library
     
     DAWG files were placed here by hand, not copied by a script
 
@@ -16,12 +16,19 @@ mod ffi {
 
         type dawg_app;
 
-        fn new_dawg_app() -> UniquePtr<dawg_app>;
-        fn run(&self, argc: u64) -> u64;
+        // fn new_dawg_app() -> UniquePtr<dawg_app>;
+        fn new_dawg_app(argc: u64, argv: Vec<String>) -> UniquePtr<dawg_app>;
+        fn run(&self) -> u64;
     }
 }
 
 fn main() {
-    let dawg_app = ffi::new_dawg_app();
-    dawg_app.run(1);
+    let argv =  vec![String::from("loosely_wrapped_dna"),
+        String::from("--help-trick")];
+        // String::from("--seed=101"),
+        // String::from("basic-dna.dawg"),
+        // String::from("-o"),
+        // String::from("basic-dna_101.fasta")];
+    let dawg_app = ffi::new_dawg_app(argv.len() as u64, argv);
+    let run_result = dawg_app.run();
 }

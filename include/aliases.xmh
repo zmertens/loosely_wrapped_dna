@@ -1,0 +1,24 @@
+/****************************************************************************
+ *  Copyright (C) 2010 Reed A. Cartwright, PhD <reed@scit.us>               *
+ ****************************************************************************/
+
+#include "loosely_wrapped_dna/include/xm.h"
+
+/***************************************************************************
+ *    X-Macro List                                                         *
+ ***************************************************************************/
+
+XM((indel)(model),  (indel)(model)(ins))
+XM((indel)(model),  (indel)(model)(del))
+XM((indel)(params), (indel)(params)(ins))
+XM((indel)(params), (indel)(params)(del))
+XM((indel)(rate),   (indel)(rate)(ins))
+XM((indel)(rate),   (indel)(rate)(del))
+XM((indel)(max),    (indel)(max)(ins))
+XM((indel)(max),    (indel)(max)(del))
+
+/***************************************************************************
+ *    cleanup                                                              *
+ ***************************************************************************/
+#include "loosely_wrapped_dna/include/xm.h"
+

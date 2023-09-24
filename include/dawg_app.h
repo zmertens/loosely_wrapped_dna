@@ -36,14 +36,14 @@ namespace dawg_app {
 class dawg_app {
     public:
     dawg_app();
-    // dawg_app(uint64_t argc);
-    // dawg_app(const dawg_app&) = delete;             // copy constructor
-    // dawg_app& operator=(const dawg_app&) = delete;  // copy assignment operator
-    // dawg_app(dawg_app&&) = delete;                  // move constructor
-    // dawg_app& operator=(dawg_app&&) = delete;       // move assignment operator
-    // virtual ~dawg_app() = default;                  // destructor
+    dawg_app(uint64_t argc, rust::Vec<rust::String> argv);
+    dawg_app(const dawg_app&) = delete;             // copy constructor
+    dawg_app& operator=(const dawg_app&) = delete;  // copy assignment operator
+    dawg_app(dawg_app&&) = delete;                  // move constructor
+    dawg_app& operator=(dawg_app&&) = delete;       // move assignment operator
+    virtual ~dawg_app() = default;                  // destructor
 
-    uint64_t run(uint64_t argc) const;
+    uint64_t run() const;
 
     struct args {
         // use X-Macros to specify argument variables
@@ -61,7 +61,7 @@ class dawg_app {
     std::string runname{""};
 };
 
-std::unique_ptr<dawg_app> new_dawg_app();
+std::unique_ptr<dawg_app> new_dawg_app(uint64_t argc, rust::Vec<rust::String> argv);
 
 } // namespace
 
